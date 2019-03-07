@@ -1,36 +1,21 @@
 import React, { Component } from 'react'
 import { CircularProgress, Snackbar } from 'react-md'
 import { getUser } from '../actions/GetUser';
+import { hideMessageError } from '../actions/GetRepos';
 import TopBar from './TopBar'
 import Sidebar from './Sidebar'
 import { connect } from "react-redux";
 
 class Layout extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      error: ''
-    }
-    this.hideMessage = this.hideMessage.bind(this)
-  }
-
   componentDidMount() {
     this.props.getUser()
   }
 
-  hideMessage () {
-    this.setState(
-      {
-        error: null
-      }
-    )
-  }
 
   render() {
-    const { isFetchingUser, children, errorMsg, user } = this.props
-    const { error } = this.state
-    const toasts = error !== null && errorMsg ? [{ text: errorMsg }] :[]
+    const { isFetchingUser, children, errorMsg, user, hideMessageError } = this.props
+    const toasts = errorMsg ? [{ text: errorMsg }] :[]
     return (
       <div>
         {
@@ -47,7 +32,7 @@ class Layout extends Component {
         <Snackbar
           id='error-snackbar'
           toasts={toasts}
-          onDismiss={this.hideMessage}
+          onDismiss={hideMessageError}
         />
       </div>
     )
@@ -57,14 +42,15 @@ class Layout extends Component {
 const mapStateToProps = state => {
   return { 
     user: state.GetUserReducer.user,
-    errorMsg: state.GetUserReducer.errorMsg,
+    errorMsg: state.GetReposReducer.errorMsg,
     isFetchingUser: state.GetUserReducer.isFetchingUser,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getUser: () => dispatch(getUser())
+    getUser: () => dispatch(getUser()),
+    hideMessageError: () => dispatch(hideMessageError(null))
   }
 }
 

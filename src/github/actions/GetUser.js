@@ -1,4 +1,4 @@
-import { GET_USER, NOT_GET_USER} from '../constants/ToDoList';
+import { GET_USER, NOT_GET_USER, HIDE_ERROR } from '../constants/ToDoList';
 import axios from 'axios';
 
 export const updateUser = (user) => {
@@ -11,6 +11,13 @@ export const updateUser = (user) => {
 export const NotupdateUser = (error) => {
   return {
     type: NOT_GET_USER,
+    error: error,
+  }
+}
+
+export const hideMessageError = (error) => {
+  return {
+    type: HIDE_ERROR,
     error: error,
   }
 }

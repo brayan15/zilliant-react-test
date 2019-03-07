@@ -2,53 +2,30 @@ import React, { Component } from 'react'
 import { CircularProgress } from 'react-md'
 
 import { connect } from "react-redux"
-import { getRepos } from '../actions/GetRepos';
+import { getRepos, selectRepo, unSelectRepo } from '../actions/GetRepos';
 import RepoList from './RepoList'
 import RepoDetail from './RepoDetail'
 
 class Repos extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedRepo: null,
-    }
-
-    this.selectRepo = this.selectRepo.bind(this);
-    this.unSelectRepo = this.unSelectRepo.bind(this);
-  }
-
   componentDidMount() {
     this.props.getRepos()
-  }
-
-  selectRepo (e, repo) {
-    const selectedRepo = this.props.repos.find(repositore => {
-      return repositore.id === repo.id
-    })
-    this.setState({ selectedRepo:selectedRepo })
-  }
-
-  unSelectRepo() {
-    this.setState({ selectedRepo:null })
   }
 
   render() {
     const {
       isFetchingRepos,
       repos,
-    } = this.props
-    const {
+      selectRepo,
+      unSelectRepo,
       selectedRepo
-    } = this.state
+    } = this.props
 
     return (
       isFetchingRepos
         ? <CircularProgress id='repos-progress' />
         : selectedRepo
-          ? <RepoDetail repo={selectedRepo} unSelectRepo={this.unSelectRepo} />
-          : <RepoList repos={repos} selectRepo={this.selectRepo} />
+          ? <RepoDetail repo={selectedRepo} unSelectRepo={unSelectRepo} />
+          : <RepoList repos={repos} selectRepo={selectRepo} />
     )
   }
 }
@@ -58,12 +35,15 @@ const mapStateToProps = state => {
     repos: state.GetReposReducer.repos,
     errorMsg: state.GetReposReducer.errorMsg,
     isFetchingRepos: state.GetReposReducer.isFetchingRepos,
+    selectedRepo: state.GetReposReducer.selectedRepo
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRepos: () => dispatch(getRepos())
+    getRepos: () => dispatch(getRepos()),
+    selectRepo: (e, repo) => dispatch(selectRepo(repo.id)),
+    unSelectRepo: (e, repo) => dispatch(unSelectRepo())
   }
 }
 

@@ -1,4 +1,4 @@
-import { GET_USER, NOT_GET_USER } from '../constants/ToDoList';
+import { GET_USER, NOT_GET_USER, HIDE_ERROR } from '../constants/ToDoList';
 
 const initialState = {
   user: null,
@@ -8,6 +8,11 @@ const initialState = {
 
 const GetUserReducer = ( state = initialState, action ) => {
   switch(action.type) {
+    case HIDE_ERROR:
+      return {
+        ...state,
+        errorMsg: action.error
+      }
     case GET_USER:
       return {
         ...state,
