@@ -11,42 +11,44 @@ class Repos extends Component {
   constructor(props) {
     super(props);
 
-    this.onClick = this.onClick.bind(this);
+    this.state = {
+      selectedRepo: null,
+    }
+
+    this.selectRepo = this.selectRepo.bind(this);
+    this.unSelectRepo = this.unSelectRepo.bind(this);
   }
 
   componentDidMount() {
     this.props.getRepos()
-    console.log(this.props)
-    // const { updateRepos, lastSuccessfulReposFetch } = this.props
-
-    // const now = new Date()
-    // if (!lastSuccessfulReposFetch) {
-    //   updateRepos()
-    // } else if ((now - lastSuccessfulReposFetch) / 1000 > 300) {
-    //   updateRepos()
-    // }
-
   }
 
-  onClick (e, repo) {
-    // Call function selectRepo(repo.id)
-    console.log(repo.id)
+  selectRepo (e, repo) {
+    const selectedRepo = this.props.repos.find(repositore => {
+      return repositore.id === repo.id
+    })
+    this.setState({ selectedRepo:selectedRepo })
+  }
+
+  unSelectRepo() {
+    this.setState({ selectedRepo:null })
   }
 
   render() {
     const {
       isFetchingRepos,
       repos,
-      selectedRepo,
-      selectRepo,
-      unselectRepo
     } = this.props
+    const {
+      selectedRepo
+    } = this.state
+
     return (
       isFetchingRepos
         ? <CircularProgress id='repos-progress' />
         : selectedRepo
-          ? <RepoDetail repo={selectedRepo} unselectRepo={unselectRepo} />
-          : <RepoList repos={repos} selectRepo={selectRepo} onChange={this.onClick} />
+          ? <RepoDetail repo={selectedRepo} unSelectRepo={this.unSelectRepo} />
+          : <RepoList repos={repos} selectRepo={this.selectRepo} />
     )
   }
 }
@@ -64,6 +66,5 @@ const mapDispatchToProps = (dispatch) => {
     getRepos: () => dispatch(getRepos())
   }
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Repos);

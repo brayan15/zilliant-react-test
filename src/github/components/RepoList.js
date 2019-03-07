@@ -10,8 +10,7 @@ const RepoList = (props) => {
         props.repos && props.repos.map((repo, idx) => {
           return (
             <Cell key={idx} size={6}>
-              {/* <RepoCard repo={repo} selectRepo={selectRepo} /> */}
-              <RepoCard repo={repo} onChangeEvent={(e) => props.onChange(e, repo)} />
+              <RepoCard repo={repo} selectRepo={(e) => props.selectRepo(e, repo)} />
             </Cell>
           )
         })

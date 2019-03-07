@@ -4,9 +4,7 @@ import { Avatar, Card, CardTitle, CardText, List, ListItem } from 'react-md'
 const RepoCard = (props) => {
   const repo  = props.repo
   return (
-
-    // <Card onClick={selectRepo(repo.id)}>
-    <Card onClick={(e) => props.onChangeEvent(e, repo)}>
+    <Card onClick={(e) => props.selectRepo(e, repo)}>
       <CardTitle
         title={repo.name}
         subtitle={repo.full_name}

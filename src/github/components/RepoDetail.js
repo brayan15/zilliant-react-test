@@ -8,8 +8,8 @@ import {
   TableBody
 } from 'react-md'
 
-const RepoDetail = ({ repo, unselectRepo }) => {
-  console.log(repo)
+const RepoDetail = (props) => {
+  const repo = props.repo
   let children = []
   for (let key in repo) {
     if (typeof repo[key] !== 'object') {
@@ -29,14 +29,14 @@ const RepoDetail = ({ repo, unselectRepo }) => {
   return (
     <div style={{paddingTop: "20px", paddingRight: "20px", width: "100%"}}>
       <Button
-        onClick={unselectRepo}
         style={{marginBottom: "20px"}}
         mini floating
+        onClick={() => props.unSelectRepo()}
       >
         arrow_back
       </Button>
       <Paper style={{padding: "20px"}}>
-        <h2>{repo.name}</h2>
+        <h2>{props.repo.name}</h2>
         <DataTable plain>
           <TableBody>
             {children}
