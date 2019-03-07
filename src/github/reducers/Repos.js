@@ -1,6 +1,10 @@
-import { GET_REPOS } from '../constants/ToDoList';
+import { GET_REPOS, NOT_GET_REPOS } from '../constants/ToDoList';
 
-const initialState = [];
+const initialState = {
+  repos: null,
+  isFetchingRepos: false,
+  errorMsg: null,
+};
 
 const GetReposReducer = ( state = initialState, action ) => {
   switch(action.type) {
@@ -8,6 +12,11 @@ const GetReposReducer = ( state = initialState, action ) => {
       return {
         ...state,
         repos: action.repos
+      }
+    case NOT_GET_REPOS:
+      return {
+        ...state,
+        errorMsg: action.error
       }
     default:
       return state

@@ -3,14 +3,15 @@ import { Grid, Cell } from 'react-md'
 
 import RepoCard from './RepoCard'
 
-const RepoList = ({ repos, selectRepo }) => {
+const RepoList = (props) => {
   return (
     <Grid>
       {
-        repos.map((repo, idx) => {
+        props.repos && props.repos.map((repo, idx) => {
           return (
             <Cell key={idx} size={6}>
-              <RepoCard repo={repo} selectRepo={selectRepo} />
+              {/* <RepoCard repo={repo} selectRepo={selectRepo} /> */}
+              <RepoCard repo={repo} onChangeEvent={(e) => props.onChange(e, repo)} />
             </Cell>
           )
         })
