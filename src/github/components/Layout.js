@@ -40,8 +40,11 @@ class Layout extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   return { 
-    user: state.GetUserReducer.user
+    user: state.GetUserReducer.user,
+    errorMsg: state.GetUserReducer.errorMsg,
+    isFetchingUser: state.GetUserReducer.isFetchingUser
   }
 }
 

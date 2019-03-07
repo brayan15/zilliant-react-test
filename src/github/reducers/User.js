@@ -1,6 +1,10 @@
-import { GET_USER } from '../constants/ToDoList';
+import { GET_USER, NOT_GET_USER } from '../constants/ToDoList';
 
-const initialState = [];
+const initialState = {
+  user: null,
+  isFetchingUser: false,
+  errorMsg: null,
+};
 
 const GetUserReducer = ( state = initialState, action ) => {
   switch(action.type) {
@@ -8,6 +12,11 @@ const GetUserReducer = ( state = initialState, action ) => {
       return {
         ...state,
         user: action.user
+      }
+    case NOT_GET_USER:
+      return {
+        ...state,
+        errorMsg: action.error
       }
     default:
       return state
