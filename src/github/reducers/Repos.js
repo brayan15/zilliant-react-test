@@ -37,7 +37,8 @@ const GetReposReducer = ( state = initialState, action ) => {
     case NOT_GET_REPOS:
       return {
         ...state,
-        errorMsg: action.error
+        errorMsg: action.error,
+        isFetchingRepos: false
       }
     case SELECTED_REPO:
       return {
