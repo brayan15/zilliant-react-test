@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { CircularProgress, Snackbar } from 'react-md'
-import { getUser } from '../actions/GetUser';
-import { hideMessageError } from '../actions/GetRepos';
+import { getUser } from '../actions/GetUser'
+import { hideMessageError } from '../actions/GetRepos'
+import { refreshDatas } from '../actions/Refresh'
 import TopBar from './TopBar'
 import Sidebar from './Sidebar'
 import { connect } from "react-redux";
@@ -14,7 +15,7 @@ class Layout extends Component {
 
 
   render() {
-    const { isFetchingUser, children, errorMsg, user, hideMessageError } = this.props
+    const { isFetchingUser, children, errorMsg, user, hideMessageError, refreshDatas } = this.props
     const toasts = errorMsg ? [{ text: errorMsg }] :[]
     return (
       <div>
@@ -22,7 +23,7 @@ class Layout extends Component {
           isFetchingUser
             ? <CircularProgress id='main-progress' />
             : <div>
-              <TopBar user={user}/>
+              <TopBar user={user} updateAll={refreshDatas}/>
               <div className='main-container'>
                 <Sidebar  user={user}/>
                 {children}
@@ -50,7 +51,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUser: () => dispatch(getUser()),
-    hideMessageError: () => dispatch(hideMessageError(null))
+    hideMessageError: () => dispatch(hideMessageError(null)),
+    refreshDatas: () => dispatch(refreshDatas())
   }
 }
 

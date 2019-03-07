@@ -7,7 +7,7 @@ const TopBar = (props) => {
     : <Avatar key='avt' />
   const name = props.user ? props.user.login : ''
   //const button = <Button onClick={updateAll} icon>replay</Button>
-  const button = <Button icon>replay</Button>
+  const button = <Button icon onClick={() => props.updateAll()}>replay</Button>
   return (
     <Toolbar fixed colored nav={avatar} title={name} actions={button} />
   )
