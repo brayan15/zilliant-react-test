@@ -5,7 +5,7 @@ import {
   UNSELECTED_REPO,
   FETCHING_REPOS,
   HIDE_ERROR
-} from '../constants/ToDoList';
+} from '../constants/ToDoList'
 import { getReposRequest } from '../constants/Request'
 
 export const updateRepos = (repos) => {

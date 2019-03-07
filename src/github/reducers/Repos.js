@@ -5,13 +5,14 @@ import {
   UNSELECTED_REPO,
   FETCHING_REPOS,
   HIDE_ERROR
-} from '../constants/ToDoList';
+} from '../constants/ToDoList'
 
 const initialState = {
   repos: null,
   isFetchingRepos: false,
   errorMsg: null,
-  selectedRepo: null
+  selectedRepo: null,
+  lastSuccessfullReposFetch: null
 };
 
 const GetReposReducer = ( state = initialState, action ) => {
@@ -30,7 +31,8 @@ const GetReposReducer = ( state = initialState, action ) => {
       return {
         ...state,
         repos: action.repos,
-        isFetchingRepos: false
+        isFetchingRepos: false,
+        lastSuccessfullReposFetch: new Date()
       }
     case NOT_GET_REPOS:
       return {

@@ -1,9 +1,10 @@
-import { GET_USER, NOT_GET_USER, HIDE_ERROR } from '../constants/ToDoList';
+import { GET_USER, NOT_GET_USER, HIDE_ERROR } from '../constants/ToDoList'
 
 const initialState = {
   user: null,
   isFetchingUser: false,
   errorMsg: null,
+  lastSuccessfullUserFetch: null
 };
 
 const GetUserReducer = ( state = initialState, action ) => {
@@ -16,7 +17,8 @@ const GetUserReducer = ( state = initialState, action ) => {
     case GET_USER:
       return {
         ...state,
-        user: action.user
+        user: action.user,
+        lastSuccessfullUserFetch: new Date()
       }
     case NOT_GET_USER:
       return {

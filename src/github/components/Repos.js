@@ -1,14 +1,22 @@
 import React, { Component } from 'react'
 import { CircularProgress } from 'react-md'
-
 import { connect } from "react-redux"
+
 import { getRepos, selectRepo, unSelectRepo } from '../actions/GetRepos'
 import RepoList from './RepoList'
 import RepoDetail from './RepoDetail'
 
 class Repos extends Component {
   componentDidMount() {
-    this.props.getRepos()
+
+    const { getRepos, lastSuccessfullReposFetch } = this.props
+  
+    const now = new Date();
+    if (!lastSuccessfullReposFetch) {
+      getRepos()
+    } else if ((now - lastSuccessfullReposFetch) / 1000 > 300) {
+      getRepos()
+    }
   }
 
   render() {
@@ -37,7 +45,8 @@ const mapStateToProps = state => {
     repos: getReposReducerFromState(state.GetReposReducer, 'repos'),
     errorMsg: getReposReducerFromState(state.GetReposReducer, 'errorMsg'),
     isFetchingRepos: getReposReducerFromState(state.GetReposReducer, 'isFetchingRepos'),
-    selectedRepo: getReposReducerFromState(state.GetReposReducer, 'selectedRepo')
+    selectedRepo: getReposReducerFromState(state.GetReposReducer, 'selectedRepo'),
+    lastSuccessfullReposFetch: getReposReducerFromState(state.GetReposReducer, 'lastSuccessfullReposFetch')
   }
 }
 
