@@ -1,10 +1,10 @@
 import React from 'react'
 import { Drawer, List, ListItem, Avatar, FontIcon } from 'react-md'
 
-import { connect } from '../store'
 
-const Sidebar = ({ user }) => {
-  console.log(user)
+const Sidebar = (props) => {
+  const user = props.user
+  
   return (
     user
     ? <Drawer
@@ -41,4 +41,4 @@ const Sidebar = ({ user }) => {
   )
 }
 
-export default connect(Sidebar)
+export default Sidebar
