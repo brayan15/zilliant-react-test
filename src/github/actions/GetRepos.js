@@ -6,7 +6,7 @@ import {
   FETCHING_REPOS,
   HIDE_ERROR
 } from '../constants/ToDoList';
-import axios from 'axios';
+import { getReposRequest } from '../constants/Request'
 
 export const updateRepos = (repos) => {
   return {
@@ -53,7 +53,7 @@ export const hideMessageError = (error) => {
 export const getRepos = () => {
   return dispatch => {
     dispatch(isFetchigRepos(true))
-    return axios.get('https://api.github.com/users/caal-15/repos')
+    return getReposRequest
     .then(response => {
     	dispatch(updateRepos(response.data))
     }).catch(error => {

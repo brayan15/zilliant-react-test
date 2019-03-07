@@ -1,5 +1,5 @@
-import { GET_USER, NOT_GET_USER, HIDE_ERROR } from '../constants/ToDoList';
-import axios from 'axios';
+import { GET_USER, NOT_GET_USER, HIDE_ERROR } from '../constants/ToDoList'
+import { getUserRequest } from '../constants/Request'
 
 export const updateUser = (user) => {
   return {
@@ -24,7 +24,7 @@ export const hideMessageError = (error) => {
 
 export const getUser = () => {
   return dispatch => {
-    return axios.get('https://api.github.com/users/caal-15')
+    return getUserRequest
     .then(response => {
     	dispatch(updateUser(response.data))
     }).catch(error => {
