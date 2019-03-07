@@ -40,11 +40,13 @@ class Layout extends Component {
   }
 }
 
+const getUserReducerFromState = (state, property) => state[property]
+
 const mapStateToProps = state => {
   return { 
-    user: state.GetUserReducer.user,
-    errorMsg: state.GetReposReducer.errorMsg,
-    isFetchingUser: state.GetUserReducer.isFetchingUser,
+    user: getUserReducerFromState(state.GetUserReducer, 'user'),
+    errorMsg: getUserReducerFromState(state.GetReposReducer, 'errorMsg'),
+    isFetchingUser: getUserReducerFromState(state.GetUserReducer, 'isFetchingUser'),
   }
 }
 

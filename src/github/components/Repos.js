@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { CircularProgress } from 'react-md'
 
 import { connect } from "react-redux"
-import { getRepos, selectRepo, unSelectRepo } from '../actions/GetRepos';
+import { getRepos, selectRepo, unSelectRepo } from '../actions/GetRepos'
 import RepoList from './RepoList'
 import RepoDetail from './RepoDetail'
 
@@ -30,12 +30,14 @@ class Repos extends Component {
   }
 }
 
+const getReposReducerFromState = (state, property) => state[property]
+
 const mapStateToProps = state => {
   return { 
-    repos: state.GetReposReducer.repos,
-    errorMsg: state.GetReposReducer.errorMsg,
-    isFetchingRepos: state.GetReposReducer.isFetchingRepos,
-    selectedRepo: state.GetReposReducer.selectedRepo
+    repos: getReposReducerFromState(state.GetReposReducer, 'repos'),
+    errorMsg: getReposReducerFromState(state.GetReposReducer, 'errorMsg'),
+    isFetchingRepos: getReposReducerFromState(state.GetReposReducer, 'isFetchingRepos'),
+    selectedRepo: getReposReducerFromState(state.GetReposReducer, 'selectedRepo')
   }
 }
 
